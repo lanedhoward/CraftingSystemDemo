@@ -26,7 +26,7 @@ namespace CraftingSystemDemo
             {
                 GoBackOneLine();
                 ClearCurrentConsoleLine();
-                Print();
+                Print("");
             }
         }
 
@@ -46,53 +46,29 @@ namespace CraftingSystemDemo
             Console.SetCursorPosition(0, currentLineCursor);
         }
 
-        public static void Print()
+        //establish delegates
+        
+        public delegate void PrintDelegate(string message);
+        public static PrintDelegate Print = PrintConsole;
+
+        public delegate void PrintSameLineDelegate(string message);
+        public static PrintSameLineDelegate PrintSameLine = PrintSameLineConsole;
+
+
+        /*
+        public static void PrintConsole()
         {
             WriteLine();
         }
-        public static void Print(string message)
+        */
+        public static void PrintConsole(string message)
         {
             Console.WriteLine(message);
         }
 
-        public static void PrintSameLine(string message)
+        public static void PrintSameLineConsole(string message)
         {
             Console.Write(message);
-        }
-
-        public static string ShowAllItemsInList(List<Item> items, bool showPrice)
-        {
-            string output = "";
-            int index = 1; 
-            // since this is player facing, it should be 1 indexed. 
-            //keep this in mind whenever picking something out of the list
-
-            foreach (Item item in items)
-            {
-
-                // every item will have a quantity and a name.
-                output += "  [" + index + "]" + "   " + item.Quantity + " " + item.Name;
-
-                //some will have a description, so if they have one, show it
-                if (item.Description != "" && item.Description != null)
-                {
-                    output += ": " + item.Description;
-                }
-
-                //showPrice is for shops and such
-                if (showPrice)
-                {
-                    output += " ---- " + item.Price.ToString("C");
-                }
-
-                //end with a new line
-                output += "\n";
-
-                //increment index
-                index += 1;
-            }
-
-            return output;
         }
 
         public static bool GetInputBool()
@@ -101,7 +77,7 @@ namespace CraftingSystemDemo
 
             
             string input = ReadKey(false).Key.ToString();
-            Print();
+            Print("");
 
             if (input == "Y" || input == "y")
             {
@@ -117,8 +93,8 @@ namespace CraftingSystemDemo
                 return GetInputBool();
             }
         }
-
         
+
         public static int GetInputInt(int min, int max)
         {
             PrintSameLine("[" + min.ToString() + " - " + max.ToString() + "]: ");

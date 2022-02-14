@@ -35,5 +35,21 @@ namespace CraftingSystemDemo
             Description = _Description;
         }
 
+        public Item(double _Quantity, string _Name, string _Description, double _Price)
+        {
+            Quantity = _Quantity;
+            Name = _Name;
+            Description = _Description;
+            Price = _Price;
+        }
+
+        public static Item ItemClone(Item duplicateFrom)
+        {
+            //Item cloning constructor
+            Item resultItem = new Item(duplicateFrom.Quantity, duplicateFrom.Name, duplicateFrom.Description, duplicateFrom.Price);
+
+            return resultItem;
+        }
+
     }
 }

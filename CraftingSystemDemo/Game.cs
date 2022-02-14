@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Console;
 using static CraftingSystemDemo.ConsoleUtils;
+using static CraftingSystemDemo.GameUtils;
 
 namespace CraftingSystemDemo
 {
@@ -66,10 +67,16 @@ namespace CraftingSystemDemo
             MyPlayer.Craft(sleepingPotion);
             Print(ShowAllItemsInList(MyPlayer.Inventory, false));
 
+            WaitForKeyPress(true);
+
             Trader MyTrader = new Trader();
-            //MyTrader.StartDialogue(MyPlayer);
+            MyTrader.StartDialogue(MyPlayer);
 
+            Print(ShowAllItemsInList(MyPlayer.Inventory, false));
 
+            MyTrader.StartDialogue(MyPlayer);
+
+            Print(ShowAllItemsInList(MyPlayer.Inventory, false));
 
             WaitForKeyPress(true);
         }

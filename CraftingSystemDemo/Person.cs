@@ -7,7 +7,7 @@ using static CraftingSystemDemo.ConsoleUtils;
 
 namespace CraftingSystemDemo
 {
-    public class Person
+    public class Person : ISay
     {
         public string Name;
         public double Money;
@@ -26,7 +26,7 @@ namespace CraftingSystemDemo
 
             if (waitAfter)
             {
-                Print();
+                Print("");
                 WaitForKeyPress(true);
             }
         }
@@ -36,7 +36,8 @@ namespace CraftingSystemDemo
         {
             bool success = true;
             Item result;
-            List<Item> startingInventory = Inventory; //saved in case we need to revert
+            List<Item> startingInventory = new List<Item>(Inventory); //saved in case we need to revert
+            //using contstructor like this to copy by value
 
             foreach (Item item in recipe.requirements)
             {
@@ -50,7 +51,6 @@ namespace CraftingSystemDemo
                 foreach (Item i in Inventory)
                 {
                     
-
                     if (i.Name == name && i.Quantity >= quantity)
                     {
                         //if it works, reduce quantity / remove from inventory
@@ -83,6 +83,7 @@ namespace CraftingSystemDemo
                 // else, success = false and stop looping
                 if (success == false)
                 {
+                    //if we are missing one of the items, no point looking for the rest.
                     break;
                 }
             }
